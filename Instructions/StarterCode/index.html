@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>UFO Finder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">UFO Sightings
+            <img class="nav-ufo" src="static/images/ufo.svg">
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div class="hero text-center">
+      <h1>UFO Sightings</h1>
+      <p>The Truth is Out There</p>
+    </div>
+    <div class="container">
+      <div class="row margin-top-50">
+        <div class="col-md-2">
+          <aside class="filters">
+            <div class="panel panel-default">
+              <div class="panel-heading">Filter Search</div>
+              <div class="panel-body">
+                <form>
+                  <div class="form-group">
+                    <ul class="list-group" id="filters">
+
+                  <!-- *********************RESET***************************** -->
+                      <!-- <li class="filter list-group-item"> -->
+                        <!-- <label for="date">Enter a Date for UFO Sightings</label> -->
+                        <!-- <input class="form-control" id="reset" type="text" placeholder="1/11/2011"> -->
+                        <!-- <input class="form-control" id="city" type="text" placeholder="city"> -->
+                      <!-- </li> -->
+                      <!-- </ul> -->
+                      <!-- </div> -->
+                      <button id="reset-btn" type="submit" class="btn btn-default">RESET TABLE</button>
+                  <!-- *********************DATE***************************** -->
+                      <li class="filter list-group-item">
+                        <label for="date">Enter a Date for UFO Sightings</label>
+                        <input class="form-control" id="datetime" type="text" placeholder="1/11/2011">
+                        <!-- <input class="form-control" id="city" type="text" placeholder="city"> -->
+                      </li>
+                    </ul>
+                  </div>
+                  <button id="filter-btn" type="submit" class="btn btn-default">Filter by Date</button>
+                  <!-- *********************CITY***************************** -->
+                  <div class="form-group">
+                      <ul class="list-group" id="filters">
+                        <li class="filter list-group-item">
+                            <label for="city">Enter a City for UFO Sightings</label>
+                            <input class="form-control" id="city" type="text" placeholder="Enter city">
+                        </li>
+                      </ul>
+                  </div>
+                  
+                  <button id="filter-city" type="submit" class="btn btn-default">Filter by City</button>
+                  <!-- *********************STATE***************************** -->
+                  <div class="form-group">
+                    <ul class="list-group" id="filters">
+                      <li class="filter list-group-item">
+                          <label for="city">Enter a State for UFO Sightings</label>
+                          <input class="form-control" id="state" type="text" placeholder="Enter state">
+                      </li>
+                    </ul>
+                  </div>
+
+                  <button id="filter-state" type="submit" class="btn btn-default">Filter by State</button>
+                  <!-- *********************COUNTRY***************************** -->
+                  <!-- <div class="form-group"> -->
+                    <!-- <ul class="list-group" id="filters"> -->
+                      <!-- <li class="filter list-group-item"> -->
+                          <!-- <label for="city">Enter a Country for UFO Sightings</label> -->
+                          <!-- <input class="form-control" id="country" type="text" placeholder="country"> -->
+                      <!-- </li> -->
+                    <!-- </ul> -->
+                  <!-- </div> -->
+                  <div class="form-group">
+                      <!-- <ul class="list-group" id="filters"> -->
+                          <li class="filter list-group-item">
+                    <select class="shape-select" onchange="getUfoCountryData(this.value)">
+                      <option selected="">Select Country for UFO Sightings</option>
+                      <option value="us">united states</option>
+                      <option value="ca">canada</option>
+                    </select>
+                </div>
+                  <!-- <button id="filter-country" type="submit" class="btn btn-default">Filter by Country</button> -->
+                <!-- *********************SHAPE***************************** -->
+                  <!-- <div class="form-group"> -->
+                    <!-- <ul class="list-group" id="filters"> -->
+                      <!-- <li class="filter list-group-item"> -->
+                          <!-- <label for="shape">Select UFO Sightings Shape</label> -->
+                          <!-- <input class="form-control" id="shape" type="text" placeholder="shape"> -->
+                      <!-- </li> -->
+                    <!-- </ul> -->
+                  <!-- </div> -->
+                  <div class="form-group">
+                      <!-- <ul class="list-group" id="filters"> -->
+                          <li class="filter list-group-item">
+                    <select class="shape-select" onchange="getUfoShapeData(this.value)">
+                      <option selected="">Select Shapes of UFO Sightings</option>
+                      <option value="circle">circle</option>
+                      <option value="light">light</option>
+                      <option value="triangle">triangle</option>
+                      <option value="fireball">fireball</option>
+                      <option value="formation">formation</option>
+                      <option value="sphere">sphere</option>
+                      <option value="disk">disk</option>
+                      <option value="chevron">chevron</option>
+                      <option value="flash">flash</option>
+                      <option value="changing">changing</option>
+                      <option value="oval">oval</option>
+                      <option value="cigar">cigar</option>
+                      <option value="teardrop">teardrop</option>
+                      <option value="other">other</option>
+                      <option value="unknown">unknown</option>
+                    </select>
+                </div>
+                  <!-- <button id="filter-shape" type="submit" class="btn btn-default">Filter by Shape</button> -->
+                  <!-- <input type="button" name="reset_form" value="Reset Form" onclick="this.form.reset()";> -->
+                  <!-- <input type="button" name="clear" value="Clear Form" onclick="clearForm(this.form)";> -->
+
+                 
+                </form>
+              </div>
+            </div>
+          </aside>
+        </div>
+        <div class="col-md-10">
+          <div id="table-area" class="">
+            <table id="ufo-table" class="table table-striped">
+              <thead>
+                <tr>
+                  <th class="table-head">Date</th>
+                  <th class="table-head">City</th>
+                  <th class="table-head">State</th>
+                  <th class="table-head">Country</th>
+                  <th class="table-head">Shape</th>
+                  <th class="table-head">Duration</th>
+                  <th class="table-head">Comments</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <span class="bottom">UFO Sightings</span>
+    </footer>
+  </div>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script> -->
+  <script src="static/js/data.js"></script>
+  <!-- <script src="static/js/app.js"></script> -->
+  <script src="static/js/app2.js"></script>
+</body>
+
+</html>
